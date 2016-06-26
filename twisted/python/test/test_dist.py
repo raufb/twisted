@@ -253,6 +253,22 @@ version = versions.Version("twisted", 0, 1, 2)
 
 
 
+class GetConsoleScriptsTests(TestCase):
+    """
+    Tests for L{dist.getConsoleScripts} which returns the scripts
+    which should be included in the distribution of a project.
+    """
+    def test_getConsoleScripts(self):
+        consoleScripts = dist.getConsoleScripts()
+        if _PY3:
+            # Not all the scripts have been ported to
+            # Python 3
+            self.assertEqual(len(consoleScripts), 2)
+        else:
+            self.assertEqual(len(consoleScripts), 8)
+
+
+
 class DummyCommand:
     """
     A fake Command.
